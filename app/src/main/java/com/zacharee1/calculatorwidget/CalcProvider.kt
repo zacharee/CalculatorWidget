@@ -38,6 +38,7 @@ class CalcProvider : AppWidgetProvider() {
         }
 
         var currentInputText = HashMap<Int, ArrayList<String>?>()
+        var results = HashMap<Int, String>()
 
         fun makeIntent(button: Char, id: Int): Intent {
             return Intent(BASE_INTENT)
@@ -131,9 +132,9 @@ class CalcProvider : AppWidgetProvider() {
                                 }
                             }
 
-                            val wasEmpty = currentInputText[id]!!.isEmpty()
                             currentInputText[id]?.clear()
-                            if (!wasEmpty) currentInputText[id]?.add(result.toString())
+
+                            results[id] = result.toString()
                         }
 
                         DELETE -> {
@@ -142,6 +143,7 @@ class CalcProvider : AppWidgetProvider() {
 
                         CLEAR -> {
                             currentInputText[id]?.clear()
+                            results.remove(id)
                         }
 
                         INPUT -> {
@@ -152,12 +154,19 @@ class CalcProvider : AppWidgetProvider() {
                             val text = currentInputText[id] ?: addToMapIfNeeded(id)
 
                             val last = if (text.size > 0) text[text.lastIndex] else null
+                            val oldResult = results[id]
 
+                            val canAddForResult = (isOperator(button) && oldResult != null && !oldResult.isBlank())
                             val canAdd =
-                                    !(isOperator(button) && currentInputText[id]!!.size < 1)
+                                    (!(isOperator(button) && currentInputText[id]!!.size < 1)
                                             && !(isOperator(button) && isOperator(last))
-                                            && if (button == DOT) canAddDot(id) else true
-                            if (canAdd) currentInputText[id]!!.add(Character.toString(button))
+                                            && if (button == DOT) canAddDot(id) else true)
+                                    || canAddForResult
+                            if (canAdd) {
+                                val new = currentInputText[id]!!
+                                if (canAddForResult) new.add(oldResult!!)
+                                new.add(Character.toString(button))
+                            }
                         }
                     }
 
@@ -194,13 +203,16 @@ class CalcProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.input_text, makePendingIntent(context, INPUT, it))
 
             val format = DecimalFormat("0.########")
-            val text = TextUtils.join("", currentInputText[it]!!)
+            var text = TextUtils.join("", currentInputText[it]!!)
+            val isResult = text.isBlank() && results[it] != null
 
-            val formatted = try {
+            if (isResult) text = results[it]
+
+            val formatted = if (isResult) try {
                 format.format(text.toDouble())
             } catch (e: Exception) {
                 text
-            }
+            } else text
 
             views.setTextViewText(R.id.input_text, Html.fromHtml(formatted))
             appWidgetManager.updateAppWidget(it, views)
