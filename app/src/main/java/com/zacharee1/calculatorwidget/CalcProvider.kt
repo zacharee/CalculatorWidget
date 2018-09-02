@@ -92,10 +92,10 @@ class CalcProvider : AppWidgetProvider() {
         }
     }
 
-    override fun onReceive(context: Context, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
 
-        when (intent?.action) {
+        when (intent.action) {
             ACTION_BUTTON_PRESSED -> {
                 if (intent.hasExtra(EXTRA_BUTTON) && intent.hasExtra(EXTRA_ID)) {
                     val button = intent.getCharExtra(EXTRA_BUTTON, Char.MAX_HIGH_SURROGATE)
@@ -106,7 +106,7 @@ class CalcProvider : AppWidgetProvider() {
                             val numbers = ArrayList<String>()
                             val temp = ArrayList<String>()
 
-                            currentInputText[id]!!.forEach {
+                            currentInputText[id]?.forEach {
                                 if (isNotOperator(it)) {
                                     temp.add(it)
                                 }
@@ -132,16 +132,16 @@ class CalcProvider : AppWidgetProvider() {
                             }
 
                             val wasEmpty = currentInputText[id]!!.isEmpty()
-                            currentInputText[id]!!.clear()
-                            if (!wasEmpty) currentInputText[id]!!.add(result.toString())
+                            currentInputText[id]?.clear()
+                            if (!wasEmpty) currentInputText[id]?.add(result.toString())
                         }
 
                         DELETE -> {
-                            if (currentInputText[id]!!.size > 0) currentInputText[id]!!.removeAt(currentInputText[id]!!.lastIndex)
+                            if (currentInputText[id]!!.size > 0) currentInputText[id]?.removeAt(currentInputText[id]!!.lastIndex)
                         }
 
                         CLEAR -> {
-                            currentInputText[id]!!.clear()
+                            currentInputText[id]?.clear()
                         }
 
                         INPUT -> {
