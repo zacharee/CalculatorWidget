@@ -1,8 +1,7 @@
 package com.zacharee1.calculatorwidget
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.crashlytics.android.Crashlytics
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 

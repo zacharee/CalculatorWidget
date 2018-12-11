@@ -36,50 +36,6 @@
           "status": 2
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1052002379210:android:dbfcfbf1dde7e883",
-        "android_client_info": {
-          "package_name": "tk.zwander.widgetdrawer"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1052002379210-sseuef0psthf6v8liempcr5b8phqa4d9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "tk.zwander.widgetdrawer",
-            "certificate_hash": "a0454543a13e7f4b002fba62bd007626a9b07528"
-          }
-        },
-        {
-          "client_id": "1052002379210-iumvod4sktu2ojjg6eqgrdpufapsmss0.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA8Uxh9vNxhVQbudvG_DZqUXampeebOwo4"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1052002379210-iumvod4sktu2ojjg6eqgrdpufapsmss0.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
     }
   ],
   "configuration_version": "1"
