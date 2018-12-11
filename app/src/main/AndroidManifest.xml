@@ -17,14 +17,26 @@
             <!--</intent-filter>-->
         </activity>
 
-        <receiver android:name=".CalcProvider">
+        <receiver android:name=".CalcProviderLight"
+            android:label="@string/light">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/calc_provider_info" />
+                android:resource="@xml/calc_info" />
+        </receiver>
+
+        <receiver android:name=".CalcProviderDark"
+            android:label="@string/dark">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/calc_info" />
         </receiver>
     </application>
 

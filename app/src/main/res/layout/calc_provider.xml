@@ -12,9 +12,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:minHeight="50dp"
-        android:textColor="#fff"
+        android:textColor="@color/light"
         android:textSize="36sp"
-        android:background="@drawable/border"
+        android:background="@drawable/border_dark"
         android:clickable="true"
         android:focusable="true"
         android:foreground="@drawable/button_background"
@@ -31,12 +31,12 @@
 
         <TextView
             android:id="@+id/seven"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -47,12 +47,12 @@
 
         <TextView
             android:id="@+id/eight"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -63,12 +63,12 @@
 
         <TextView
             android:id="@+id/nine"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -79,12 +79,12 @@
 
         <TextView
             android:id="@+id/divide"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -95,12 +95,12 @@
 
         <TextView
             android:id="@+id/delete"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -119,12 +119,12 @@
 
         <TextView
             android:id="@+id/four"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -135,12 +135,12 @@
 
         <TextView
             android:id="@+id/five"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -151,12 +151,12 @@
 
         <TextView
             android:id="@+id/six"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -167,12 +167,12 @@
 
         <TextView
             android:id="@+id/times"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -183,12 +183,12 @@
 
         <TextView
             android:id="@+id/clear"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -207,12 +207,12 @@
 
         <TextView
             android:id="@+id/one"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -223,12 +223,12 @@
 
         <TextView
             android:id="@+id/two"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -239,12 +239,12 @@
 
         <TextView
             android:id="@+id/three"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -255,12 +255,12 @@
 
         <TextView
             android:id="@+id/minus"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -270,7 +270,7 @@
             android:textSize="36sp" />
 
         <TextView
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -288,12 +288,12 @@
 
         <TextView
             android:id="@+id/dot"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -304,12 +304,12 @@
 
         <TextView
             android:id="@+id/zero"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -319,7 +319,7 @@
             android:textSize="36sp" />
 
         <TextView
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -329,12 +329,12 @@
 
         <TextView
             android:id="@+id/plus"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"
@@ -345,12 +345,12 @@
 
         <TextView
             android:id="@+id/equals"
-            android:textColor="#fff"
+            android:textColor="@color/light"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:minWidth="50dp"
-            android:background="@drawable/border"
+            android:background="@drawable/border_dark"
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/button_background"

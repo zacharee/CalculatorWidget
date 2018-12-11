@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">HomeCalc</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 
     <string name="one">1</string>
     <string name="two">2</string>
@@ -19,4 +21,6 @@
     <string name="clear">C</string>
     <string name="equals">=</string>
     <string name="dot">.</string>
+
+    <string name="copied">Copied %s to clipboard</string>
 </resources>

@@ -3,20 +3,17 @@ package com.zacharee1.calculatorwidget
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
+import android.content.*
 import android.text.Html
 import android.text.TextUtils
-import android.util.Log
 import android.widget.RemoteViews
+import android.widget.Toast
 import java.text.DecimalFormat
 
 /**
  * Implementation of App Widget functionality.
  */
-class CalcProvider : AppWidgetProvider() {
+abstract class BaseCalcProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_BUTTON_PRESSED = "com.zacharee1.calculatorwidget.action.BUTTON_PRESSED"
         const val EXTRA_BUTTON = "button"
@@ -32,35 +29,8 @@ class CalcProvider : AppWidgetProvider() {
         const val EQUALS = '\u003D'
         const val INPUT = '\u2402'
 
-        val BASE_INTENT = Intent(ACTION_BUTTON_PRESSED).apply {
-            component = ComponentName("com.zacharee1.calculatorwidget", "com.zacharee1.calculatorwidget.CalcProvider")
-            `package` = component!!.packageName
-        }
-
         var currentInputText = HashMap<Int, ArrayList<String>?>()
         var results = HashMap<Int, String>()
-
-        fun makeIntent(button: Char, id: Int): Intent {
-            return Intent(BASE_INTENT)
-                    .putExtra(EXTRA_BUTTON, button)
-                    .putExtra(EXTRA_ID, id)
-        }
-
-        fun makePendingIntent(context: Context, button: Char, id: Int): PendingIntent {
-            return PendingIntent.getBroadcast(context, button.hashCode() + id.hashCode() + Math.random().hashCode(), makeIntent(button, id), 0)
-        }
-
-        fun update(context: Context) {
-            val manager = AppWidgetManager.getInstance(context)
-            val ids = manager.getAppWidgetIds(ComponentName(context, CalcProvider::class.java))
-
-            val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
-            intent.`package` = context.packageName
-            intent.component = ComponentName(context, CalcProvider::class.java)
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-
-            context.sendBroadcast(intent)
-        }
 
         fun isNotOperator(button: Char?) = button != DIVIDE && button != MULTIPLY && button != SUBTRACT && button != ADD
         fun isNotOperator(button: String?) = button != null && button.length > 1 || isNotOperator(button?.toCharArray()?.get(0))
@@ -93,6 +63,10 @@ class CalcProvider : AppWidgetProvider() {
         }
     }
 
+    internal abstract val color: Int
+    internal abstract val border: Int
+    internal abstract val clazz: Class<out BaseCalcProvider>
+
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
 
@@ -110,8 +84,7 @@ class CalcProvider : AppWidgetProvider() {
                             currentInputText[id]?.forEach {
                                 if (isNotOperator(it)) {
                                     temp.add(it)
-                                }
-                                else {
+                                } else {
                                     numbers.add(TextUtils.join("", temp))
                                     temp.clear()
                                     numbers.add(it)
@@ -138,7 +111,8 @@ class CalcProvider : AppWidgetProvider() {
                         }
 
                         DELETE -> {
-                            if (currentInputText[id]!!.size > 0) currentInputText[id]?.removeAt(currentInputText[id]!!.lastIndex)
+                            val t = currentInputText[id] ?: return
+                            if (t.size > 0) t.removeAt(t.lastIndex)
                         }
 
                         CLEAR -> {
@@ -147,7 +121,11 @@ class CalcProvider : AppWidgetProvider() {
                         }
 
                         INPUT -> {
+                            val result = results[id] ?: return
+                            val cbm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
+                            cbm.primaryClip = ClipData.newPlainText(context.resources.getString(R.string.app_name), result)
+                            Toast.makeText(context, context.resources.getString(R.string.copied, result), Toast.LENGTH_SHORT).show()
                         }
 
                         else -> {
@@ -158,14 +136,13 @@ class CalcProvider : AppWidgetProvider() {
 
                             val canAddForResult = (isOperator(button) && oldResult != null && !oldResult.isBlank())
                             val canAdd =
-                                    (!(isOperator(button) && currentInputText[id]!!.size < 1)
+                                    (!(isOperator(button) && text.size < 1)
                                             && !(isOperator(button) && isOperator(last))
                                             && if (button == DOT) canAddDot(id) else true)
-                                    || canAddForResult
+                                            || canAddForResult
                             if (canAdd) {
-                                val new = currentInputText[id]!!
-                                if (canAddForResult) new.add(oldResult!!)
-                                new.add(Character.toString(button))
+                                if (canAddForResult) text.add(oldResult!!)
+                                text.add(Character.toString(button))
                             }
                         }
                     }
@@ -178,7 +155,7 @@ class CalcProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         appWidgetIds.forEach {
-            addToMapIfNeeded(it)
+            val current = addToMapIfNeeded(it)
             val views = RemoteViews(context.packageName, R.layout.calc_provider)
 
             views.setOnClickPendingIntent(R.id.one, makePendingIntent(context, '1', it))
@@ -201,9 +178,53 @@ class CalcProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.plus, makePendingIntent(context, ADD, it))
             views.setOnClickPendingIntent(R.id.equals, makePendingIntent(context, EQUALS, it))
             views.setOnClickPendingIntent(R.id.input_text, makePendingIntent(context, INPUT, it))
+            
+            val parsedColor = context.resources.getColor(color)
+
+            views.setTextColor(R.id.one, parsedColor)
+            views.setTextColor(R.id.two, parsedColor)
+            views.setTextColor(R.id.three, parsedColor)
+            views.setTextColor(R.id.four, parsedColor)
+            views.setTextColor(R.id.five, parsedColor)
+            views.setTextColor(R.id.six, parsedColor)
+            views.setTextColor(R.id.seven, parsedColor)
+            views.setTextColor(R.id.eight, parsedColor)
+            views.setTextColor(R.id.nine, parsedColor)
+            views.setTextColor(R.id.zero, parsedColor)
+
+            views.setTextColor(R.id.divide, parsedColor)
+            views.setTextColor(R.id.delete, parsedColor)
+            views.setTextColor(R.id.times, parsedColor)
+            views.setTextColor(R.id.clear, parsedColor)
+            views.setTextColor(R.id.minus, parsedColor)
+            views.setTextColor(R.id.dot, parsedColor)
+            views.setTextColor(R.id.plus, parsedColor)
+            views.setTextColor(R.id.equals, parsedColor)
+            views.setTextColor(R.id.input_text, parsedColor)
+
+            views.setInt(R.id.one, "setBackgroundResource", border)
+            views.setInt(R.id.two, "setBackgroundResource", border)
+            views.setInt(R.id.three, "setBackgroundResource", border)
+            views.setInt(R.id.four, "setBackgroundResource", border)
+            views.setInt(R.id.five, "setBackgroundResource", border)
+            views.setInt(R.id.six, "setBackgroundResource", border)
+            views.setInt(R.id.seven, "setBackgroundResource", border)
+            views.setInt(R.id.eight, "setBackgroundResource", border)
+            views.setInt(R.id.nine, "setBackgroundResource", border)
+            views.setInt(R.id.zero, "setBackgroundResource", border)
+
+            views.setInt(R.id.divide, "setBackgroundResource", border)
+            views.setInt(R.id.delete, "setBackgroundResource", border)
+            views.setInt(R.id.times, "setBackgroundResource", border)
+            views.setInt(R.id.clear, "setBackgroundResource", border)
+            views.setInt(R.id.minus, "setBackgroundResource", border)
+            views.setInt(R.id.dot, "setBackgroundResource", border)
+            views.setInt(R.id.plus, "setBackgroundResource", border)
+            views.setInt(R.id.equals, "setBackgroundResource", border)
+            views.setInt(R.id.input_text, "setBackgroundResource", border)
 
             val format = DecimalFormat("0.########")
-            var text = TextUtils.join("", currentInputText[it]!!)
+            var text = TextUtils.join("", current)
             val isResult = text.isBlank() && results[it] != null
 
             if (isResult) text = results[it]
@@ -227,9 +248,36 @@ class CalcProvider : AppWidgetProvider() {
         appWidgetIds.forEach { currentInputText.remove(it) }
     }
 
+    internal fun getComponent(context: Context) = ComponentName(context, clazz)
+
     private fun addToMapIfNeeded(id: Int): ArrayList<String> {
         if (!currentInputText.containsKey(id)) currentInputText[id] = ArrayList()
         return currentInputText[id]!!
+    }
+
+    private fun makeIntent(context: Context, button: Char, id: Int): Intent {
+        return Intent(ACTION_BUTTON_PRESSED).apply {
+            component = getComponent(context)
+            `package` = component!!.packageName
+            putExtra(EXTRA_BUTTON, button)
+            putExtra(EXTRA_ID, id)
+        }
+    }
+
+    private fun makePendingIntent(context: Context, button: Char, id: Int): PendingIntent {
+        return PendingIntent.getBroadcast(context, button.hashCode() + id.hashCode() + Math.random().hashCode(), makeIntent(context, button, id), 0)
+    }
+
+    private fun update(context: Context) {
+        val manager = AppWidgetManager.getInstance(context)
+
+        val ids = manager.getAppWidgetIds(getComponent(context))
+        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
+        intent.`package` = context.packageName
+        intent.component = getComponent(context)
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+
+        context.sendBroadcast(intent)
     }
 }
 
