@@ -1,35 +1,66 @@
 {
   "project_info": {
-    "project_number": "306667759207",
-    "firebase_url": "https://homecalc-dbab6.firebaseio.com",
-    "project_id": "homecalc-dbab6",
-    "storage_bucket": "homecalc-dbab6.appspot.com"
+    "project_number": "1052002379210",
+    "firebase_url": "https://new-apps-fa48f.firebaseio.com",
+    "project_id": "new-apps-fa48f",
+    "storage_bucket": "new-apps-fa48f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:306667759207:android:cea0db2bf3a36dc0",
+        "mobilesdk_app_id": "1:1052002379210:android:cea0db2bf3a36dc0",
         "android_client_info": {
           "package_name": "com.zacharee1.calculatorwidget"
         }
       },
       "oauth_client": [
         {
-          "client_id": "306667759207-sspflpirml4ig8v9rmr2etrtpo4vo320.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.zacharee1.calculatorwidget",
-            "certificate_hash": "347a7ca8c07ebb5a2d4f3b400f40e815462a35d8"
-          }
-        },
-        {
-          "client_id": "306667759207-vgst1bq3bnl2q504fdmbvh9l98d5eud8.apps.googleusercontent.com",
+          "client_id": "1052002379210-iumvod4sktu2ojjg6eqgrdpufapsmss0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrZnR1pHgsnxjKrdKGwrGsCVzZeZvHtQE"
+          "current_key": "AIzaSyA8Uxh9vNxhVQbudvG_DZqUXampeebOwo4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052002379210:android:dbfcfbf1dde7e883",
+        "android_client_info": {
+          "package_name": "tk.zwander.widgetdrawer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052002379210-sseuef0psthf6v8liempcr5b8phqa4d9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tk.zwander.widgetdrawer",
+            "certificate_hash": "a0454543a13e7f4b002fba62bd007626a9b07528"
+          }
+        },
+        {
+          "client_id": "1052002379210-iumvod4sktu2ojjg6eqgrdpufapsmss0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8Uxh9vNxhVQbudvG_DZqUXampeebOwo4"
         }
       ],
       "services": {
@@ -40,7 +71,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "306667759207-vgst1bq3bnl2q504fdmbvh9l98d5eud8.apps.googleusercontent.com",
+              "client_id": "1052002379210-iumvod4sktu2ojjg6eqgrdpufapsmss0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
