@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:title="@string/text_color"
+        android:key="text_color"
+        android:defaultValue="@android:color/white"
+        app:cpv_allowCustom="true"
+        app:cpv_showAlphaSlider="true"
+        />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:title="@string/border_color"
+        android:key="border_color"
+        android:defaultValue="@android:color/white"
+        app:cpv_allowCustom="true"
+        app:cpv_showAlphaSlider="true"
+        />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:title="@string/background_color"
+        android:key="background_color"
+        android:defaultValue="@android:color/transparent"
+        app:cpv_allowCustom="true"
+        app:cpv_showAlphaSlider="true"
+        />
+
+</PreferenceScreen>

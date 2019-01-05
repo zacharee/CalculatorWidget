@@ -4,16 +4,18 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.*
-import android.text.Html
+import android.graphics.Color
 import android.text.TextUtils
+import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import java.text.DecimalFormat
 
 /**
  * Implementation of App Widget functionality.
  */
-abstract class BaseCalcProvider : AppWidgetProvider() {
+open class CalcProvider : AppWidgetProvider() {
     companion object {
         const val ACTION_BUTTON_PRESSED = "com.zacharee1.calculatorwidget.action.BUTTON_PRESSED"
         const val EXTRA_BUTTON = "button"
@@ -28,6 +30,55 @@ abstract class BaseCalcProvider : AppWidgetProvider() {
         const val CLEAR = '\u239A'
         const val EQUALS = '\u003D'
         const val INPUT = '\u2402'
+        
+        val borders = hashMapOf(
+                '1' to R.id.one_border,
+                '2' to R.id.two_border,
+                '3' to R.id.three_border,
+                '4' to R.id.four_border,
+                '5' to R.id.five_border,
+                '6' to R.id.six_border,
+                '7' to R.id.seven_border,
+                '8' to R.id.eight_border,
+                '9' to R.id.nine_border,
+                '0' to R.id.zero_border,
+                INPUT to R.id.input_border,
+                DIVIDE to R.id.divide_border,
+                MULTIPLY to R.id.times_border,
+                SUBTRACT to R.id.minus_border,
+                ADD to R.id.plus_border,
+                DOT to R.id.dot_border,
+                DELETE to R.id.delete_border,
+                CLEAR to R.id.clear_border,
+                EQUALS to R.id.equals_border
+        )
+
+        val numbers = hashMapOf(
+                '1' to R.id.one,
+                '2' to R.id.two,
+                '3' to R.id.three,
+                '4' to R.id.four,
+                '5' to R.id.five,
+                '6' to R.id.six,
+                '7' to R.id.seven,
+                '8' to R.id.eight,
+                '9' to R.id.nine,
+                '0' to R.id.zero
+        )
+
+        val functions = hashMapOf(
+                DIVIDE to R.id.divide,
+                MULTIPLY to R.id.times,
+                SUBTRACT to R.id.minus,
+                ADD to R.id.plus,
+                DOT to R.id.dot,
+                DELETE to R.id.delete,
+                CLEAR to R.id.clear,
+                EQUALS to R.id.equals,
+                INPUT to R.id.input_text
+        )
+
+        val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
 
         var currentInputText = HashMap<Int, ArrayList<String>?>()
         var results = HashMap<Int, String>()
@@ -61,11 +112,21 @@ abstract class BaseCalcProvider : AppWidgetProvider() {
 
             return Double.MIN_VALUE
         }
-    }
 
-    internal abstract val color: Int
-    internal abstract val border: Int
-    internal abstract val clazz: Class<out BaseCalcProvider>
+        fun update(context: Context) {
+            val manager = AppWidgetManager.getInstance(context)
+
+            val ids = manager.getAppWidgetIds(getComponent(context))
+            val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
+            intent.`package` = context.packageName
+            intent.component = getComponent(context)
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+
+            context.sendBroadcast(intent)
+        }
+
+        private fun getComponent(context: Context) = ComponentName(context, CalcProvider::class.java)
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
@@ -158,70 +219,44 @@ abstract class BaseCalcProvider : AppWidgetProvider() {
             val current = addToMapIfNeeded(it)
             val views = RemoteViews(context.packageName, R.layout.calc_provider)
 
-            views.setOnClickPendingIntent(R.id.one, makePendingIntent(context, '1', it))
-            views.setOnClickPendingIntent(R.id.two, makePendingIntent(context, '2', it))
-            views.setOnClickPendingIntent(R.id.three, makePendingIntent(context, '3', it))
-            views.setOnClickPendingIntent(R.id.four, makePendingIntent(context, '4', it))
-            views.setOnClickPendingIntent(R.id.five, makePendingIntent(context, '5', it))
-            views.setOnClickPendingIntent(R.id.six, makePendingIntent(context, '6', it))
-            views.setOnClickPendingIntent(R.id.seven, makePendingIntent(context, '7', it))
-            views.setOnClickPendingIntent(R.id.eight, makePendingIntent(context, '8', it))
-            views.setOnClickPendingIntent(R.id.nine, makePendingIntent(context, '9', it))
-            views.setOnClickPendingIntent(R.id.zero, makePendingIntent(context, '0', it))
+            views.setViewVisibility(R.id.loader, View.GONE)
 
-            views.setOnClickPendingIntent(R.id.divide, makePendingIntent(context, DIVIDE, it))
-            views.setOnClickPendingIntent(R.id.delete, makePendingIntent(context, DELETE, it))
-            views.setOnClickPendingIntent(R.id.times, makePendingIntent(context, MULTIPLY, it))
-            views.setOnClickPendingIntent(R.id.clear, makePendingIntent(context, CLEAR, it))
-            views.setOnClickPendingIntent(R.id.minus, makePendingIntent(context, SUBTRACT, it))
-            views.setOnClickPendingIntent(R.id.dot, makePendingIntent(context, DOT, it))
-            views.setOnClickPendingIntent(R.id.plus, makePendingIntent(context, ADD, it))
-            views.setOnClickPendingIntent(R.id.equals, makePendingIntent(context, EQUALS, it))
-            views.setOnClickPendingIntent(R.id.input_text, makePendingIntent(context, INPUT, it))
-            
-            val parsedColor = context.resources.getColor(color)
+            views.setInt(R.id.content, "setBackgroundColor",
+                    context.prefManager.getBackgroundColorForId(it))
 
-            views.setTextColor(R.id.one, parsedColor)
-            views.setTextColor(R.id.two, parsedColor)
-            views.setTextColor(R.id.three, parsedColor)
-            views.setTextColor(R.id.four, parsedColor)
-            views.setTextColor(R.id.five, parsedColor)
-            views.setTextColor(R.id.six, parsedColor)
-            views.setTextColor(R.id.seven, parsedColor)
-            views.setTextColor(R.id.eight, parsedColor)
-            views.setTextColor(R.id.nine, parsedColor)
-            views.setTextColor(R.id.zero, parsedColor)
+            val textColor = context.prefManager.getTextColorForId(it)
+            val textAlpha = Color.alpha(textColor)
+            val tcNoAlpha = Color.argb(255, Color.red(textColor),
+                    Color.green(textColor), Color.blue(textColor))
 
-            views.setTextColor(R.id.divide, parsedColor)
-            views.setTextColor(R.id.delete, parsedColor)
-            views.setTextColor(R.id.times, parsedColor)
-            views.setTextColor(R.id.clear, parsedColor)
-            views.setTextColor(R.id.minus, parsedColor)
-            views.setTextColor(R.id.dot, parsedColor)
-            views.setTextColor(R.id.plus, parsedColor)
-            views.setTextColor(R.id.equals, parsedColor)
-            views.setTextColor(R.id.input_text, parsedColor)
+            views.setOnClickPendingIntent(R.id.settings,
+                    PendingIntent.getActivity(context, 's'.hashCode() + it.hashCode() + Math.random().hashCode(),
+                            Intent(context, SettingsActivity::class.java)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, it), 0))
+            views.setImageViewResource(R.id.settings, R.drawable.settings)
+            views.setInt(R.id.settings, "setColorFilter", tcNoAlpha)
+            views.setInt(R.id.settings, "setImageAlpha", textAlpha)
 
-            views.setInt(R.id.one, "setBackgroundResource", border)
-            views.setInt(R.id.two, "setBackgroundResource", border)
-            views.setInt(R.id.three, "setBackgroundResource", border)
-            views.setInt(R.id.four, "setBackgroundResource", border)
-            views.setInt(R.id.five, "setBackgroundResource", border)
-            views.setInt(R.id.six, "setBackgroundResource", border)
-            views.setInt(R.id.seven, "setBackgroundResource", border)
-            views.setInt(R.id.eight, "setBackgroundResource", border)
-            views.setInt(R.id.nine, "setBackgroundResource", border)
-            views.setInt(R.id.zero, "setBackgroundResource", border)
+            all.keys.forEach { key ->
+                val value = all[key]!!
 
-            views.setInt(R.id.divide, "setBackgroundResource", border)
-            views.setInt(R.id.delete, "setBackgroundResource", border)
-            views.setInt(R.id.times, "setBackgroundResource", border)
-            views.setInt(R.id.clear, "setBackgroundResource", border)
-            views.setInt(R.id.minus, "setBackgroundResource", border)
-            views.setInt(R.id.dot, "setBackgroundResource", border)
-            views.setInt(R.id.plus, "setBackgroundResource", border)
-            views.setInt(R.id.equals, "setBackgroundResource", border)
-            views.setInt(R.id.input_text, "setBackgroundResource", border)
+                views.setOnClickPendingIntent(value, makePendingIntent(context, key, it))
+                views.setTextColor(value, textColor)
+            }
+
+            val borderColor = context.prefManager.getBorderColorForId(it)
+            val borderAlpha = Color.alpha(borderColor)
+            val bcNoAlpha = Color.argb(255, Color.red(borderColor),
+                    Color.green(borderColor), Color.blue(borderColor))
+
+            borders.values.forEach { id ->
+                views.setImageViewResource(id, R.drawable.border)
+                views.setInt(id, "setColorFilter", bcNoAlpha)
+                views.setInt(id, "setImageAlpha", borderAlpha)
+                appWidgetManager.updateAppWidget(it, views)
+                appWidgetManager.notifyAppWidgetViewDataChanged(it, id)
+            }
 
             val format = DecimalFormat("0.########")
             var text = TextUtils.join("", current)
@@ -235,7 +270,7 @@ abstract class BaseCalcProvider : AppWidgetProvider() {
                 text
             } else text
 
-            views.setTextViewText(R.id.input_text, Html.fromHtml(formatted))
+            views.setTextViewText(R.id.input_text, HtmlCompat.fromHtml(formatted, 0))
             appWidgetManager.updateAppWidget(it, views)
         }
     }
@@ -248,7 +283,6 @@ abstract class BaseCalcProvider : AppWidgetProvider() {
         appWidgetIds.forEach { currentInputText.remove(it) }
     }
 
-    internal fun getComponent(context: Context) = ComponentName(context, clazz)
 
     private fun addToMapIfNeeded(id: Int): ArrayList<String> {
         if (!currentInputText.containsKey(id)) currentInputText[id] = ArrayList()
@@ -265,19 +299,8 @@ abstract class BaseCalcProvider : AppWidgetProvider() {
     }
 
     private fun makePendingIntent(context: Context, button: Char, id: Int): PendingIntent {
-        return PendingIntent.getBroadcast(context, button.hashCode() + id.hashCode() + Math.random().hashCode(), makeIntent(context, button, id), 0)
-    }
-
-    private fun update(context: Context) {
-        val manager = AppWidgetManager.getInstance(context)
-
-        val ids = manager.getAppWidgetIds(getComponent(context))
-        val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
-        intent.`package` = context.packageName
-        intent.component = getComponent(context)
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-
-        context.sendBroadcast(intent)
+        return PendingIntent.getBroadcast(context, button.hashCode() + id.hashCode() + Math.random().hashCode(),
+                    makeIntent(context, button, id), 0)
     }
 }
 

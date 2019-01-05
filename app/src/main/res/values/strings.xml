@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">HomeCalc</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="text_color">Text Color</string>
+    <string name="border_color">Border Color</string>
+    <string name="background_color">Background Color</string>
 
     <string name="one">1</string>
     <string name="two">2</string>

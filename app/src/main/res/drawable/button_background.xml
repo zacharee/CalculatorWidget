@@ -3,6 +3,6 @@
     android:exitFadeDuration="200"
     android:enterFadeDuration="200">
 
-    <item android:state_pressed="true" android:drawable="@drawable/selector_on" />
+    <item android:state_pressed="true" android:drawable="@drawable/rect_selected" />
 
 </selector>
