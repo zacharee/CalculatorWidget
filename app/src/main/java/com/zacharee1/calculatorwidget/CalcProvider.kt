@@ -232,7 +232,7 @@ open class CalcProvider : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.settings,
                     PendingIntent.getActivity(context, 's'.hashCode() + it.hashCode() + Math.random().hashCode(),
                             Intent(context, SettingsActivity::class.java)
-                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
                                     .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, it), 0))
             views.setImageViewResource(R.id.settings, R.drawable.settings)
             views.setInt(R.id.settings, "setColorFilter", tcNoAlpha)
