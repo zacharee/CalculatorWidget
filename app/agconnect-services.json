@@ -1,0 +1,30 @@
+{
+	"agcgw":{
+		"backurl":"connect-dre.dbankcloud.cn",
+		"url":"connect-dre.hispace.hicloud.com"
+	},
+	"client":{
+		"cp_id":"5190001000034272213",
+		"product_id":"736430079244566794",
+		"client_id":"407327734063170560",
+		"client_secret":"35A903E1BD31A19C0FEC947209644ED8C5F759B1DDD04EFAF17970796336EF3D",
+		"app_id":"102568459",
+		"package_name":"com.zacharee1.calculatorwidget",
+		"api_key":"CgB6e3x98dZppPaWXgKSWbLopHmdPEEk0mDM6fz6KQ8hyyJbyli/e7qLc3DaB0YqBgV/BD0Cg86d32Bz/KiBEdUU"
+	},
+	"service":{
+		"analytics":{
+			"collector_url":"datacollector-dre.dt.hicloud.com,datacollector-dre.dt.dbankcloud.cn",
+			"resource_id":"p1",
+			"channel_id":""
+		},
+		"cloudstorage":{
+			"storage_url":"https://agc-storage-dre.platform.dbankcloud.cn"
+		},
+		"ml":{
+			"mlservice_url":"ml-api-dre.ai.dbankcloud.com,ml-api-dre.ai.dbankcloud.cn"
+		}
+	},
+	"region":"DE",
+	"configuration_version":"1.0"
+}

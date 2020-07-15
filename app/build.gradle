@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.zacharee1.calculatorwidget"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 3
         versionName "1.2.0"
@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     implementation 'com.jaredrummler:colorpicker-compat:1.0.5'
+
+    implementation 'com.huawei.hms:hianalytics:5.0.1.300'
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.huawei.hms.plugin.analytics'
