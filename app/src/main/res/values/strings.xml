@@ -3,6 +3,7 @@
     <string name="text_color">Text Color</string>
     <string name="border_color">Border Color</string>
     <string name="background_color">Background Color</string>
+    <string name="widget_format">Widget %s</string>
 
     <string name="one">1</string>
     <string name="two">2</string>
@@ -24,4 +25,5 @@
     <string name="dot">.</string>
 
     <string name="copied">Copied %s to clipboard</string>
+    <string name="add_widget_hint">Go to your Home Screen\'s settings to add HomeCalc as a widget.</string>
 </resources>
