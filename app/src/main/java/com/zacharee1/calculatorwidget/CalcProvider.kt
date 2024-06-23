@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.*
 import android.graphics.Color
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
@@ -130,6 +131,8 @@ open class CalcProvider : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
+
+        Log.e("Calculator", "Received ${intent.action}")
 
         when (intent.action) {
             ACTION_BUTTON_PRESSED -> {

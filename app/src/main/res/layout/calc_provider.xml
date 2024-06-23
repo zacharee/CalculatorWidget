@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,13 +21,13 @@
             android:id="@+id/input_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/button_background"
+            android:background="@drawable/rect_selected"
             android:clickable="true"
             android:focusable="true"
             android:gravity="bottom|end"
             android:minHeight="50dp"
             android:textAlignment="textEnd"
-            android:textColor="@color/light"
+            android:textColor="@color/textColor"
             android:textSize="36sp"
             tools:text="123456789"
             />
@@ -37,7 +36,7 @@
             android:id="@+id/settings"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/ripple"
+            android:background="@drawable/circle_selected"
             android:clickable="true"
             android:focusable="true"
             android:scaleType="center"
@@ -48,6 +47,7 @@
             android:id="@+id/loader"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:indeterminateTint="@color/textColor"
             />
 
     </FrameLayout>
@@ -74,14 +74,14 @@
                 android:id="@+id/seven"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/seven"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -102,14 +102,14 @@
                 android:id="@+id/eight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/eight"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -130,14 +130,14 @@
                 android:id="@+id/nine"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/nine"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -158,14 +158,14 @@
                 android:id="@+id/divide"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/divide"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -186,14 +186,14 @@
                 android:id="@+id/delete"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/del"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="28sp" />
 
         </FrameLayout>
@@ -222,14 +222,14 @@
                 android:id="@+id/four"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/four"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -250,14 +250,14 @@
                 android:id="@+id/five"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/five"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -278,14 +278,14 @@
                 android:id="@+id/six"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/six"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -306,14 +306,14 @@
                 android:id="@+id/times"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/times"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -334,14 +334,14 @@
                 android:id="@+id/clear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/clear"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -370,14 +370,14 @@
                 android:id="@+id/one"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/one"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -398,14 +398,14 @@
                 android:id="@+id/two"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/two"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -426,14 +426,14 @@
                 android:id="@+id/three"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/three"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -454,14 +454,14 @@
                 android:id="@+id/minus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/minus"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -498,14 +498,14 @@
                 android:id="@+id/dot"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/dot"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -526,14 +526,14 @@
                 android:id="@+id/zero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/zero"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -545,7 +545,7 @@
             android:clickable="false"
             android:focusable="false"
             android:minWidth="50dp"
-            android:textColor="@color/light" />
+            android:textColor="@color/textColor" />
 
         <FrameLayout
             android:id="@+id/plus_wrapper"
@@ -563,14 +563,14 @@
                 android:id="@+id/plus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/plus"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>
@@ -591,14 +591,14 @@
                 android:id="@+id/equals"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/button_background"
+                android:background="@drawable/rect_selected"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:minWidth="50dp"
                 android:text="@string/equals"
                 android:textAlignment="center"
-                android:textColor="@color/light"
+                android:textColor="@color/textColor"
                 android:textSize="36sp" />
 
         </FrameLayout>

@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
     implementation(libs.preference.ktx)
+    implementation(libs.material)
 
     implementation(libs.colorpicker.compat)
     implementation(libs.bugsnag.android)
