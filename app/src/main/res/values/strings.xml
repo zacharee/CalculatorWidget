@@ -4,6 +4,7 @@
     <string name="border_color">Border Color</string>
     <string name="background_color">Background Color</string>
     <string name="widget_format">Widget %s</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
     <string name="one">1</string>
     <string name="two">2</string>
