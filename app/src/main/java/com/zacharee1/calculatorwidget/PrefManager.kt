@@ -8,6 +8,7 @@ import androidx.preference.PreferenceManager
 val Context.prefManager: PrefManager
     get() = PrefManager.getInstance(this)
 
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 class PrefManager private constructor(context: Context) {
     companion object {
         const val BACKGROUND_COLOR_BASE = "background_color_"
@@ -46,8 +47,8 @@ class PrefManager private constructor(context: Context) {
     fun getBoolean(key: String, def: Boolean) = prefs.getBoolean(key, def)
     fun getFloat(key: String, def: Float) = prefs.getFloat(key, def)
     fun getInt(key: String, def: Int) = prefs.getInt(key, def)
-    fun getString(key: String, def: String? = null) = prefs.getString(key, def)
-    fun getStringSet(key: String, def: Set<String>) = prefs.getStringSet(key, def)
+    fun getString(key: String, def: String? = null): String? = prefs.getString(key, def)
+    fun getStringSet(key: String, def: Set<String>?): Set<String>? = prefs.getStringSet(key, def)
 
     fun remove(key: String) = prefs.edit().remove(key).apply()
 

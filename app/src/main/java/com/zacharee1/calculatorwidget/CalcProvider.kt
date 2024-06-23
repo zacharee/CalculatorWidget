@@ -17,21 +17,21 @@ import java.text.DecimalFormat
  */
 open class CalcProvider : AppWidgetProvider() {
     companion object {
-        const val ACTION_BUTTON_PRESSED = "com.zacharee1.calculatorwidget.action.BUTTON_PRESSED"
-        const val EXTRA_BUTTON = "button"
-        const val EXTRA_ID = "id"
+        private const val ACTION_BUTTON_PRESSED = "com.zacharee1.calculatorwidget.action.BUTTON_PRESSED"
+        private const val EXTRA_BUTTON = "button"
+        private const val EXTRA_ID = "id"
 
-        const val DIVIDE = '\u00F7'
-        const val MULTIPLY = '\u00D7'
-        const val SUBTRACT = '\u2212'
-        const val ADD = '\u002B'
-        const val DOT = '\u002E'
-        const val DELETE = '\u007F'
-        const val CLEAR = '\u239A'
-        const val EQUALS = '\u003D'
-        const val INPUT = '\u2402'
-        
-        val borders = hashMapOf(
+        private const val DIVIDE = '\u00F7'
+        private const val MULTIPLY = '\u00D7'
+        private const val SUBTRACT = '\u2212'
+        private const val ADD = '\u002B'
+        private const val DOT = '\u002E'
+        private const val DELETE = '\u007F'
+        private const val CLEAR = '\u239A'
+        private const val EQUALS = '\u003D'
+        private const val INPUT = '\u2402'
+
+        private val borders = hashMapOf(
                 '1' to R.id.one_border,
                 '2' to R.id.two_border,
                 '3' to R.id.three_border,
@@ -53,7 +53,7 @@ open class CalcProvider : AppWidgetProvider() {
                 EQUALS to R.id.equals_border
         )
 
-        val numbers = hashMapOf(
+        private val numbers = hashMapOf(
                 '1' to R.id.one,
                 '2' to R.id.two,
                 '3' to R.id.three,
@@ -66,7 +66,7 @@ open class CalcProvider : AppWidgetProvider() {
                 '0' to R.id.zero
         )
 
-        val functions = hashMapOf(
+        private val functions = hashMapOf(
                 DIVIDE to R.id.divide,
                 MULTIPLY to R.id.times,
                 SUBTRACT to R.id.minus,
@@ -78,17 +78,17 @@ open class CalcProvider : AppWidgetProvider() {
                 INPUT to R.id.input_text
         )
 
-        val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
+        private val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
 
-        var currentInputText = HashMap<Int, ArrayList<String>?>()
-        var results = HashMap<Int, String>()
+        private var currentInputText = HashMap<Int, ArrayList<String>?>()
+        private var results = HashMap<Int, String>()
 
-        fun isNotOperator(button: Char?) = button != DIVIDE && button != MULTIPLY && button != SUBTRACT && button != ADD
-        fun isNotOperator(button: String?) = button != null && button.length > 1 || isNotOperator(button?.toCharArray()?.get(0))
-        fun isOperator(button: Char?) = !isNotOperator(button)
-        fun isOperator(button: String?) = !isNotOperator(button)
+        private fun isNotOperator(button: Char?) = button != DIVIDE && button != MULTIPLY && button != SUBTRACT && button != ADD
+        private fun isNotOperator(button: String?) = button != null && button.length > 1 || isNotOperator(button?.toCharArray()?.get(0))
+        private fun isOperator(button: Char?) = !isNotOperator(button)
+        private fun isOperator(button: String?) = !isNotOperator(button)
 
-        fun canAddDot(id: Int): Boolean {
+        private fun canAddDot(id: Int): Boolean {
             var canAdd = true
 
             val string = TextUtils.join("", currentInputText[id]!!)
@@ -102,7 +102,7 @@ open class CalcProvider : AppWidgetProvider() {
             return canAdd
         }
 
-        fun performOp(first: Double, last: Double, op: Char?): Double {
+        private fun performOp(first: Double, last: Double, op: Char?): Double {
             when (op) {
                 DIVIDE -> return first / last
                 MULTIPLY -> return first * last
@@ -195,7 +195,7 @@ open class CalcProvider : AppWidgetProvider() {
                             val last = if (text.size > 0) text[text.lastIndex] else null
                             val oldResult = results[id]
 
-                            val canAddForResult = (isOperator(button) && oldResult != null && !oldResult.isBlank())
+                            val canAddForResult = (isOperator(button) && !oldResult.isNullOrBlank())
                             val canAdd =
                                     (!(isOperator(button) && text.size < 1)
                                             && !(isOperator(button) && isOperator(last))
@@ -203,7 +203,7 @@ open class CalcProvider : AppWidgetProvider() {
                                             || canAddForResult
                             if (canAdd) {
                                 if (canAddForResult) text.add(oldResult!!)
-                                text.add(Character.toString(button))
+                                text.add(button.toString())
                             }
                         }
                     }
@@ -230,10 +230,11 @@ open class CalcProvider : AppWidgetProvider() {
                     Color.green(textColor), Color.blue(textColor))
 
             views.setOnClickPendingIntent(R.id.settings,
-                    PendingIntent.getActivity(context, 's'.hashCode() + it.hashCode() + Math.random().hashCode(),
+                    PendingIntent.getActivity(context, 100,
                             Intent(context, SettingsActivity::class.java)
                                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-                                    .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, it), 0))
+                                    .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, it),
+                        PendingIntent.FLAG_IMMUTABLE))
             views.setImageViewResource(R.id.settings, R.drawable.settings)
             views.setInt(R.id.settings, "setColorFilter", tcNoAlpha)
             views.setInt(R.id.settings, "setImageAlpha", textAlpha)
@@ -283,7 +284,6 @@ open class CalcProvider : AppWidgetProvider() {
         appWidgetIds.forEach { currentInputText.remove(it) }
     }
 
-
     private fun addToMapIfNeeded(id: Int): ArrayList<String> {
         if (!currentInputText.containsKey(id)) currentInputText[id] = ArrayList()
         return currentInputText[id]!!
@@ -299,8 +299,7 @@ open class CalcProvider : AppWidgetProvider() {
     }
 
     private fun makePendingIntent(context: Context, button: Char, id: Int): PendingIntent {
-        return PendingIntent.getBroadcast(context, button.hashCode() + id.hashCode() + Math.random().hashCode(),
-                    makeIntent(context, button, id), 0)
+        return PendingIntent.getBroadcast(context, button.hashCode(),
+                    makeIntent(context, button, id), PendingIntent.FLAG_IMMUTABLE)
     }
 }
-

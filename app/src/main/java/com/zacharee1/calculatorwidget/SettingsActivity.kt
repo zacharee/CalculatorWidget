@@ -12,10 +12,10 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         supportFragmentManager
-                ?.beginTransaction()
-                ?.replace(R.id.content,
-                        Prefs.newInstance(intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)))
-                ?.commit()
+            .beginTransaction()
+            .replace(R.id.content,
+                Prefs.newInstance(intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)))
+            .commit()
     }
 
     class Prefs private constructor(): PreferenceFragmentCompat() {
@@ -31,10 +31,10 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        private val widgetId by lazy { arguments!!.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) }
-        private val textColor by lazy { findPreference("text_color") as ColorPreferenceCompat }
-        private val borderColor by lazy { findPreference("border_color") as ColorPreferenceCompat }
-        private val backgroundColor by lazy { findPreference("background_color") as ColorPreferenceCompat }
+        private val widgetId by lazy { requireArguments().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) }
+        private val textColor by lazy { findPreference<ColorPreferenceCompat>("text_color") }
+        private val borderColor by lazy { findPreference<ColorPreferenceCompat>("border_color") }
+        private val backgroundColor by lazy { findPreference<ColorPreferenceCompat>("background_color") }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.prefs_main, rootKey)
@@ -43,27 +43,27 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         private fun setListeners() {
-            textColor.saveValue(activity!!.prefManager.getTextColorForId(widgetId))
-            borderColor.saveValue(activity!!.prefManager.getBorderColorForId(widgetId))
-            backgroundColor.saveValue(activity!!.prefManager.getBackgroundColorForId(widgetId))
+            textColor?.saveValue(requireActivity().prefManager.getTextColorForId(widgetId))
+            borderColor?.saveValue(requireActivity().prefManager.getBorderColorForId(widgetId))
+            backgroundColor?.saveValue(requireActivity().prefManager.getBackgroundColorForId(widgetId))
 
-            textColor.setOnPreferenceChangeListener { _, newValue ->
-                activity!!.prefManager.setTextColorForId(widgetId, newValue.toString().toInt())
-                CalcProvider.update(activity!!)
-
-                true
-            }
-
-            borderColor.setOnPreferenceChangeListener { _, newValue ->
-                activity!!.prefManager.setBorderColorForId(widgetId, newValue.toString().toInt())
-                CalcProvider.update(activity!!)
+            textColor?.setOnPreferenceChangeListener { _, newValue ->
+                requireActivity().prefManager.setTextColorForId(widgetId, newValue.toString().toInt())
+                CalcProvider.update(requireActivity())
 
                 true
             }
 
-            backgroundColor.setOnPreferenceChangeListener { _, newValue ->
-                activity!!.prefManager.setBackgroundColorForId(widgetId, newValue.toString().toInt())
-                CalcProvider.update(activity!!)
+            borderColor?.setOnPreferenceChangeListener { _, newValue ->
+                requireActivity().prefManager.setBorderColorForId(widgetId, newValue.toString().toInt())
+                CalcProvider.update(requireActivity())
+
+                true
+            }
+
+            backgroundColor?.setOnPreferenceChangeListener { _, newValue ->
+                requireActivity().prefManager.setBackgroundColorForId(widgetId, newValue.toString().toInt())
+                CalcProvider.update(requireActivity())
 
                 true
             }

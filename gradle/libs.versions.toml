@@ -1,0 +1,22 @@
+[versions]
+androidGradlePlugin = "8.3.2"
+appcompat = "1.7.0"
+bugsnagAndroid = "6.6.0"
+bugsnagGradlePlugin = "0.1.0"
+colorpickerCompat = "1.0.5"
+constraintlayout = "2.1.4"
+kotlin = "2.0.0"
+preferenceKtx = "1.2.1"
+
+[libraries]
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnagAndroid" }
+colorpicker-compat = { module = "com.jaredrummler:colorpicker-compat", version.ref = "colorpickerCompat" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+bugsnag = { id = "com.bugsnag.gradle", version.ref = "bugsnagGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
