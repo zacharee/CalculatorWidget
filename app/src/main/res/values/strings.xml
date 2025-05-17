@@ -19,12 +19,13 @@
     <string name="zero">0</string>
     <string name="divide">&#247;</string>
     <string name="times">&#215;</string>
-    <string name="minus">–</string>
+    <string name="minus">&#8722;</string>
     <string name="plus">+</string>
     <string name="del">DEL</string>
     <string name="clear">C</string>
     <string name="equals">=</string>
     <string name="dot">.</string>
+    <string name="negative">-</string>
 
     <string name="copied">Copied %s to clipboard</string>
     <string name="add_widget_hint">Go to your Home Screen\'s settings to add HomeCalc as a widget.</string>

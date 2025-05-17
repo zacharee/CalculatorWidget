@@ -23,6 +23,7 @@ open class CalcProvider : AppWidgetProvider() {
         private const val DIVIDE = '\u00F7'
         private const val MULTIPLY = '\u00D7'
         private const val SUBTRACT = '\u2212'
+        private const val NEGATIVE = '-'
         private const val ADD = '\u002B'
         private const val DOT = '\u002E'
         private const val DELETE = '\u007F'
@@ -51,6 +52,7 @@ open class CalcProvider : AppWidgetProvider() {
                 CLEAR to R.id.clear_border,
                 EQUALS to R.id.equals_border,
                 "settings" to R.id.settings_border,
+                NEGATIVE to R.id.negative_border,
         )
 
         private val numbers = hashMapOf(
@@ -76,6 +78,7 @@ open class CalcProvider : AppWidgetProvider() {
                 CLEAR to R.id.clear,
                 EQUALS to R.id.equals,
                 INPUT to R.id.input_text,
+                NEGATIVE to R.id.negative,
         )
 
         private val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
@@ -99,6 +102,20 @@ open class CalcProvider : AppWidgetProvider() {
             if (string.contains(DOT)) {
                 string.forEach {
                     if (it == DOT) canAdd = false
+                    else if (!it.isDigit()) canAdd = true
+                }
+            }
+
+            return canAdd
+        }
+
+        private fun canAddNegative(id: Int): Boolean {
+            var canAdd = true
+
+            val string = addToMapIfNeeded(id).joinToString("")
+            if (string.contains(NEGATIVE)) {
+                string.forEach {
+                    if (it == NEGATIVE) canAdd = false
                     else if (!it.isDigit()) canAdd = true
                 }
             }
@@ -204,6 +221,7 @@ open class CalcProvider : AppWidgetProvider() {
                             val canAdd =
                                     (!(isOperator(button) && text.isEmpty())
                                             && !(isOperator(button) && isOperator(last))
+                                            && if (button == NEGATIVE) canAddNegative(id) else true
                                             && if (button == DOT) canAddDot(id) else true)
                                             || canAddForResult
                             if (canAdd) {

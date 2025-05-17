@@ -472,13 +472,34 @@
 
         </FrameLayout>
 
-        <TextView
+        <FrameLayout
+            android:id="@+id/negative_wrapper"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:clickable="false"
-            android:focusable="false"
-            android:minWidth="50dp" />
+            android:minWidth="50dp">
+
+            <ImageView
+                android:id="@+id/negative_border"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/negative"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rect_selected"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minWidth="50dp"
+                android:text="@string/negative"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="36sp" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
