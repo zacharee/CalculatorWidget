@@ -262,10 +262,11 @@ open class CalcProvider : AppWidgetProvider() {
                 appWidgetManager.updateAppWidget(it, views)
             }
 
-            var text = TextUtils.join("", current)
-            val isResult = text.isBlank() && results[it] != null
+            var text = current.joinToString("")
+            val result = results[it]
+            val isResult = text.isBlank() && result != null
 
-            if (isResult) text = results[it]
+            if (isResult) text = result
 
             val formatted = if (isResult) try {
                 text.format(Locale.current, "%8.8g")
