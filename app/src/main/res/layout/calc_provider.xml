@@ -15,7 +15,8 @@
         <ImageView
             android:id="@+id/input_border"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no" />
 
         <TextView
             android:id="@+id/input_text"
@@ -32,17 +33,6 @@
             tools:text="123456789"
             />
 
-        <ImageView
-            android:id="@+id/settings"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/circle_selected"
-            android:clickable="true"
-            android:focusable="true"
-            android:scaleType="center"
-            tools:tint="#fff"
-            />
-
         <ProgressBar
             android:id="@+id/loader"
             android:layout_width="48dp"
@@ -56,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:baselineAligned="false"
         android:minHeight="50dp">
 
         <FrameLayout
@@ -68,7 +59,8 @@
             <ImageView
                 android:id="@+id/seven_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/seven"
@@ -96,7 +88,8 @@
             <ImageView
                 android:id="@+id/eight_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/eight"
@@ -124,7 +117,8 @@
             <ImageView
                 android:id="@+id/nine_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/nine"
@@ -152,7 +146,8 @@
             <ImageView
                 android:id="@+id/divide_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/divide"
@@ -180,7 +175,8 @@
             <ImageView
                 android:id="@+id/delete_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/delete"
@@ -204,6 +200,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:baselineAligned="false"
         android:minHeight="50dp">
 
         <FrameLayout
@@ -216,7 +213,8 @@
             <ImageView
                 android:id="@+id/four_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/four"
@@ -244,7 +242,8 @@
             <ImageView
                 android:id="@+id/five_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/five"
@@ -272,7 +271,8 @@
             <ImageView
                 android:id="@+id/six_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/six"
@@ -300,7 +300,8 @@
             <ImageView
                 android:id="@+id/times_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/times"
@@ -328,7 +329,8 @@
             <ImageView
                 android:id="@+id/clear_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/clear"
@@ -364,7 +366,8 @@
             <ImageView
                 android:id="@+id/one_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/one"
@@ -392,7 +395,8 @@
             <ImageView
                 android:id="@+id/two_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/two"
@@ -420,7 +424,8 @@
             <ImageView
                 android:id="@+id/three_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/three"
@@ -448,7 +453,8 @@
             <ImageView
                 android:id="@+id/minus_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/minus"
@@ -483,6 +489,62 @@
         android:minHeight="50dp">
 
         <FrameLayout
+            android:id="@+id/settings_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:minWidth="50dp">
+
+            <ImageView
+                android:id="@+id/settings_border"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
+
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rect_selected"
+                android:clickable="true"
+                android:contentDescription="@string/settings"
+                android:focusable="true"
+                android:scaleType="center"
+                tools:tint="#fff"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/zero_wrapper"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:minWidth="50dp">
+
+            <ImageView
+                android:id="@+id/zero_border"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/zero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rect_selected"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:minWidth="50dp"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="36sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/dot_wrapper"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -492,7 +554,8 @@
             <ImageView
                 android:id="@+id/dot_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/dot"
@@ -511,43 +574,6 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/zero_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:minWidth="50dp">
-
-            <ImageView
-                android:id="@+id/zero_border"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/zero"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rect_selected"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:minWidth="50dp"
-                android:text="@string/zero"
-                android:textAlignment="center"
-                android:textColor="@color/textColor"
-                android:textSize="36sp" />
-
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:focusable="false"
-            android:minWidth="50dp"
-            android:textColor="@color/textColor" />
-
-        <FrameLayout
             android:id="@+id/plus_wrapper"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -557,7 +583,8 @@
             <ImageView
                 android:id="@+id/plus_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/plus"
@@ -585,7 +612,8 @@
             <ImageView
                 android:id="@+id/equals_border"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/equals"

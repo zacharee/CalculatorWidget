@@ -50,7 +50,8 @@ open class CalcProvider : AppWidgetProvider() {
                 DOT to R.id.dot_border,
                 DELETE to R.id.delete_border,
                 CLEAR to R.id.clear_border,
-                EQUALS to R.id.equals_border
+                EQUALS to R.id.equals_border,
+                "settings" to R.id.settings_border,
         )
 
         private val numbers = hashMapOf(
@@ -63,7 +64,7 @@ open class CalcProvider : AppWidgetProvider() {
                 '7' to R.id.seven,
                 '8' to R.id.eight,
                 '9' to R.id.nine,
-                '0' to R.id.zero
+                '0' to R.id.zero,
         )
 
         private val functions = hashMapOf(
@@ -75,7 +76,7 @@ open class CalcProvider : AppWidgetProvider() {
                 DELETE to R.id.delete,
                 CLEAR to R.id.clear,
                 EQUALS to R.id.equals,
-                INPUT to R.id.input_text
+                INPUT to R.id.input_text,
         )
 
         private val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
