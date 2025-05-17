@@ -81,18 +81,20 @@ open class CalcProvider : AppWidgetProvider() {
 
         private val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
 
-        private var currentInputText = HashMap<Int, ArrayList<String>?>()
+        private var currentInputText = HashMap<Int, ArrayList<Char>?>()
         private var results = HashMap<Int, String>()
 
         private fun isNotOperator(button: Char?) = button != DIVIDE && button != MULTIPLY && button != SUBTRACT && button != ADD
-        private fun isNotOperator(button: String?) = button != null && button.length > 1 || isNotOperator(button?.toCharArray()?.get(0))
         private fun isOperator(button: Char?) = !isNotOperator(button)
-        private fun isOperator(button: String?) = !isNotOperator(button)
+
+        private fun addToMapIfNeeded(id: Int): ArrayList<Char> {
+            return currentInputText[id] ?: arrayListOf<Char>().also { currentInputText[id] = it }
+        }
 
         private fun canAddDot(id: Int): Boolean {
             var canAdd = true
 
-            val string = TextUtils.join("", currentInputText[id]!!)
+            val string = TextUtils.join("", addToMapIfNeeded(id))
             if (string.contains(DOT)) {
                 string.forEach {
                     if (it == DOT) canAdd = false
@@ -140,45 +142,45 @@ open class CalcProvider : AppWidgetProvider() {
 
                     when (button) {
                         EQUALS -> {
-                            val numbers = ArrayList<String>()
-                            val temp = ArrayList<String>()
+                            val numbers = ArrayList<Char>()
+                            val temp = ArrayList<Char>()
 
-                            currentInputText[id]?.forEach {
+                            addToMapIfNeeded(id).forEach {
                                 if (isNotOperator(it)) {
                                     temp.add(it)
                                 } else {
-                                    numbers.add(TextUtils.join("", temp))
+                                    numbers.addAll(temp)
                                     temp.clear()
                                     numbers.add(it)
                                 }
                             }
 
-                            if (temp.isNotEmpty()) numbers.add(TextUtils.join("", temp))
+                            if (temp.isNotEmpty()) numbers.addAll(temp)
 
                             var result = Double.MIN_VALUE
                             var prevOp: Char? = null
 
                             numbers.forEach {
                                 if (isNotOperator(it)) {
-                                    if (result == Double.MIN_VALUE) result = it.toDouble()
-                                    else if (prevOp != null) result = performOp(result, it.toDouble(), prevOp)
+                                    if (result == Double.MIN_VALUE) result = it.code.toDouble()
+                                    else if (prevOp != null) result = performOp(result, it.code.toDouble(), prevOp)
                                 } else {
-                                    prevOp = it.toCharArray()[0]
+                                    prevOp = it
                                 }
                             }
 
-                            currentInputText[id]?.clear()
+                            addToMapIfNeeded(id).clear()
 
                             results[id] = result.toString()
                         }
 
                         DELETE -> {
-                            val t = currentInputText[id] ?: return
+                            val t = addToMapIfNeeded(id)
                             if (t.isNotEmpty()) t.removeAt(t.lastIndex)
                         }
 
                         CLEAR -> {
-                            currentInputText[id]?.clear()
+                            addToMapIfNeeded(id).clear()
                             results.remove(id)
                         }
 
@@ -191,7 +193,7 @@ open class CalcProvider : AppWidgetProvider() {
                         }
 
                         else -> {
-                            val text = currentInputText[id] ?: addToMapIfNeeded(id)
+                            val text = addToMapIfNeeded(id)
 
                             val last = if (text.isNotEmpty()) text[text.lastIndex] else null
                             val oldResult = results[id]
@@ -203,8 +205,8 @@ open class CalcProvider : AppWidgetProvider() {
                                             && if (button == DOT) canAddDot(id) else true)
                                             || canAddForResult
                             if (canAdd) {
-                                if (canAddForResult) text.add(oldResult)
-                                text.add(button.toString())
+                                if (canAddForResult) text.addAll(oldResult.toCharArray().toTypedArray())
+                                text.add(button)
                             }
                         }
                     }
@@ -240,9 +242,7 @@ open class CalcProvider : AppWidgetProvider() {
             views.setInt(R.id.settings, "setColorFilter", tcNoAlpha)
             views.setInt(R.id.settings, "setImageAlpha", textAlpha)
 
-            all.keys.forEach { key ->
-                val value = all[key]!!
-
+            all.forEach { (key, value) ->
                 views.setOnClickPendingIntent(value, makePendingIntent(context, key, it))
                 views.setTextColor(value, textColor)
             }
@@ -284,15 +284,10 @@ open class CalcProvider : AppWidgetProvider() {
         appWidgetIds.forEach { currentInputText.remove(it) }
     }
 
-    private fun addToMapIfNeeded(id: Int): ArrayList<String> {
-        if (!currentInputText.containsKey(id)) currentInputText[id] = ArrayList()
-        return currentInputText[id]!!
-    }
-
     private fun makeIntent(context: Context, button: Char, id: Int): Intent {
         return Intent(ACTION_BUTTON_PRESSED).apply {
             component = getComponent(context)
-            `package` = component!!.packageName
+            `package` = context.packageName
             putExtra(EXTRA_BUTTON, button)
             putExtra(EXTRA_ID, id)
         }

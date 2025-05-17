@@ -2,9 +2,11 @@ package com.zacharee1.calculatorwidget
 
 import android.appwidget.AppWidgetManager
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -25,7 +27,7 @@ class SettingsActivity : AppCompatActivity() {
             )
             .commit()
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.content)!!) { v, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(ActivityCompat.requireViewById<View>(this, R.id.content)) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Apply the insets as a margin to the view. This solution sets
             // only the bottom, left, and right dimensions, but you can apply whichever

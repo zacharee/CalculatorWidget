@@ -19,9 +19,9 @@ class PrefManager private constructor(context: Context) {
         private var instance: PrefManager? = null
 
         fun getInstance(context: Context): PrefManager {
-            if (instance == null) instance = PrefManager(context.applicationContext)
-
-            return instance!!
+            return instance ?: PrefManager(context.applicationContext).also {
+                instance = it
+            }
         }
     }
 
