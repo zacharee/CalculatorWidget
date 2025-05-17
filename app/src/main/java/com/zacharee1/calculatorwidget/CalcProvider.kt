@@ -9,8 +9,8 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
+import androidx.compose.ui.text.intl.Locale
 import androidx.core.text.HtmlCompat
-import java.text.DecimalFormat
 
 /**
  * Implementation of App Widget functionality.
@@ -81,20 +81,22 @@ open class CalcProvider : AppWidgetProvider() {
 
         private val all = HashMap(numbers).apply { putAll(HashMap(functions)) }
 
-        private var currentInputText = HashMap<Int, ArrayList<Char>?>()
+        private var currentInputText = HashMap<Int, ArrayList<String>?>()
         private var results = HashMap<Int, String>()
 
         private fun isNotOperator(button: Char?) = button != DIVIDE && button != MULTIPLY && button != SUBTRACT && button != ADD
+        private fun isNotOperator(button: String?) = button != null && button.length > 1 || isNotOperator(button?.toCharArray()?.get(0))
         private fun isOperator(button: Char?) = !isNotOperator(button)
+        private fun isOperator(button: String?) = !isNotOperator(button)
 
-        private fun addToMapIfNeeded(id: Int): ArrayList<Char> {
-            return currentInputText[id] ?: arrayListOf<Char>().also { currentInputText[id] = it }
+        private fun addToMapIfNeeded(id: Int): ArrayList<String> {
+            return currentInputText[id] ?: arrayListOf<String>().also { currentInputText[id] = it }
         }
 
         private fun canAddDot(id: Int): Boolean {
             var canAdd = true
 
-            val string = TextUtils.join("", addToMapIfNeeded(id))
+            val string = addToMapIfNeeded(id).joinToString("")
             if (string.contains(DOT)) {
                 string.forEach {
                     if (it == DOT) canAdd = false
@@ -142,34 +144,35 @@ open class CalcProvider : AppWidgetProvider() {
 
                     when (button) {
                         EQUALS -> {
-                            val numbers = ArrayList<Char>()
-                            val temp = ArrayList<Char>()
+                            val numbers = ArrayList<String>()
+                            val temp = ArrayList<String>()
+                            val text = addToMapIfNeeded(id)
 
-                            addToMapIfNeeded(id).forEach {
+                            text.forEach {
                                 if (isNotOperator(it)) {
                                     temp.add(it)
                                 } else {
-                                    numbers.addAll(temp)
+                                    numbers.add(temp.joinToString(""))
                                     temp.clear()
                                     numbers.add(it)
                                 }
                             }
 
-                            if (temp.isNotEmpty()) numbers.addAll(temp)
+                            if (temp.isNotEmpty()) numbers.add(temp.joinToString(""))
 
                             var result = Double.MIN_VALUE
                             var prevOp: Char? = null
 
                             numbers.forEach {
                                 if (isNotOperator(it)) {
-                                    if (result == Double.MIN_VALUE) result = it.code.toDouble()
-                                    else if (prevOp != null) result = performOp(result, it.code.toDouble(), prevOp)
+                                    if (result == Double.MIN_VALUE) result = it.toDouble()
+                                    else if (prevOp != null) result = performOp(result, it.toDouble(), prevOp)
                                 } else {
-                                    prevOp = it
+                                    prevOp = it[0]
                                 }
                             }
 
-                            addToMapIfNeeded(id).clear()
+                            text.clear()
 
                             results[id] = result.toString()
                         }
@@ -205,8 +208,8 @@ open class CalcProvider : AppWidgetProvider() {
                                             && if (button == DOT) canAddDot(id) else true)
                                             || canAddForResult
                             if (canAdd) {
-                                if (canAddForResult) text.addAll(oldResult.toCharArray().toTypedArray())
-                                text.add(button)
+                                if (canAddForResult) text.add(oldResult)
+                                text.add(button.toString())
                             }
                         }
                     }
@@ -259,14 +262,13 @@ open class CalcProvider : AppWidgetProvider() {
                 appWidgetManager.updateAppWidget(it, views)
             }
 
-            val format = DecimalFormat("0.########")
             var text = TextUtils.join("", current)
             val isResult = text.isBlank() && results[it] != null
 
             if (isResult) text = results[it]
 
             val formatted = if (isResult) try {
-                format.format(text.toDouble())
+                text.format(Locale.current, "%8.8g")
             } catch (_: Exception) {
                 text
             } else text
