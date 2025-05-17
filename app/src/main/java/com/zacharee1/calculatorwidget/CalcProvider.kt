@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider
 import android.content.*
 import android.graphics.Color
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
@@ -18,7 +17,7 @@ import java.text.DecimalFormat
  */
 open class CalcProvider : AppWidgetProvider() {
     companion object {
-        private const val ACTION_BUTTON_PRESSED = "com.zacharee1.calculatorwidget.action.BUTTON_PRESSED"
+        private const val ACTION_BUTTON_PRESSED = "${BuildConfig.APPLICATION_ID}.action.BUTTON_PRESSED"
         private const val EXTRA_BUTTON = "button"
         private const val EXTRA_ID = "id"
 
@@ -132,8 +131,6 @@ open class CalcProvider : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
 
-        Log.e("Calculator", "Received ${intent.action}")
-
         when (intent.action) {
             ACTION_BUTTON_PRESSED -> {
                 if (intent.hasExtra(EXTRA_BUTTON) && intent.hasExtra(EXTRA_ID)) {
@@ -176,7 +173,7 @@ open class CalcProvider : AppWidgetProvider() {
 
                         DELETE -> {
                             val t = currentInputText[id] ?: return
-                            if (t.size > 0) t.removeAt(t.lastIndex)
+                            if (t.isNotEmpty()) t.removeAt(t.lastIndex)
                         }
 
                         CLEAR -> {
@@ -188,24 +185,24 @@ open class CalcProvider : AppWidgetProvider() {
                             val result = results[id] ?: return
                             val cbm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
-                            cbm.primaryClip = ClipData.newPlainText(context.resources.getString(R.string.app_name), result)
+                            cbm.setPrimaryClip(ClipData.newPlainText(context.resources.getString(R.string.app_name), result))
                             Toast.makeText(context, context.resources.getString(R.string.copied, result), Toast.LENGTH_SHORT).show()
                         }
 
                         else -> {
                             val text = currentInputText[id] ?: addToMapIfNeeded(id)
 
-                            val last = if (text.size > 0) text[text.lastIndex] else null
+                            val last = if (text.isNotEmpty()) text[text.lastIndex] else null
                             val oldResult = results[id]
 
                             val canAddForResult = (isOperator(button) && !oldResult.isNullOrBlank())
                             val canAdd =
-                                    (!(isOperator(button) && text.size < 1)
+                                    (!(isOperator(button) && text.isEmpty())
                                             && !(isOperator(button) && isOperator(last))
                                             && if (button == DOT) canAddDot(id) else true)
                                             || canAddForResult
                             if (canAdd) {
-                                if (canAddForResult) text.add(oldResult!!)
+                                if (canAddForResult) text.add(oldResult)
                                 text.add(button.toString())
                             }
                         }
@@ -259,7 +256,6 @@ open class CalcProvider : AppWidgetProvider() {
                 views.setInt(id, "setColorFilter", bcNoAlpha)
                 views.setInt(id, "setImageAlpha", borderAlpha)
                 appWidgetManager.updateAppWidget(it, views)
-                appWidgetManager.notifyAppWidgetViewDataChanged(it, id)
             }
 
             val format = DecimalFormat("0.########")
@@ -270,7 +266,7 @@ open class CalcProvider : AppWidgetProvider() {
 
             val formatted = if (isResult) try {
                 format.format(text.toDouble())
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 text
             } else text
 

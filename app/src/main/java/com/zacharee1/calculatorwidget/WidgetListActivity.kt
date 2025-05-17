@@ -3,7 +3,6 @@ package com.zacharee1.calculatorwidget
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.currentStateAsState
+import androidx.core.net.toUri
 
 class WidgetListActivity : ComponentActivity() {
     private val appWidgetManager by lazy { AppWidgetManager.getInstance(this) }
@@ -83,7 +83,8 @@ class WidgetListActivity : ComponentActivity() {
                                 IconButton(
                                     onClick = {
                                         try {
-                                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/zacharee/CalculatorWidget/blob/master/PRIVACY.md")))
+                                            startActivity(Intent(Intent.ACTION_VIEW,
+                                                "https://github.com/zacharee/CalculatorWidget/blob/master/PRIVACY.md".toUri()))
                                         } catch (_: Throwable) {}
                                     },
                                 ) {

@@ -25,7 +25,7 @@ class SettingsActivity : AppCompatActivity() {
             )
             .commit()
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.content)) { v, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.content)!!) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Apply the insets as a margin to the view. This solution sets
             // only the bottom, left, and right dimensions, but you can apply whichever
