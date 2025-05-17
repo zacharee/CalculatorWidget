@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.*
 import android.graphics.Color
-import android.text.TextUtils
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.Toast
