@@ -62,4 +62,5 @@ dependencies {
 
     implementation(libs.colorpicker.compat)
     implementation(libs.bugsnag.android)
+    implementation(libs.bugsnag.android.performance)
 }

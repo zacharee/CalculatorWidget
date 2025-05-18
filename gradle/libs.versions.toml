@@ -3,6 +3,7 @@ activityCompose = "1.10.1"
 androidGradlePlugin = "8.10.0"
 appcompat = "1.7.0"
 bugsnagAndroid = "6.13.0"
+bugsnagAndroidPerformance = "1.11.0"
 bugsnagGradlePlugin = "0.4.0"
 colorpickerCompat = "1.0.5"
 composeBom = "2025.05.00"
@@ -16,6 +17,7 @@ preferenceKtx = "1.2.1"
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsnagAndroid" }
+bugsnag-android-performance = { module = "com.bugsnag:bugsnag-android-performance", version.ref = "bugsnagAndroidPerformance" }
 colorpicker-compat = { module = "com.jaredrummler:colorpicker-compat", version.ref = "colorpickerCompat" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
