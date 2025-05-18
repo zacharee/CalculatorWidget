@@ -19,6 +19,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        base.archivesName.set("HomeCalc_${versionCode}")
     }
 
     buildTypes {
